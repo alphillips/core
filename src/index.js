@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {setCacheData, getCacheData, addCacheData} from './../../../services/cache-service'
+import {setCacheData, getCacheData, addCacheData} from './services/cache-service'
 
 function wrapPage() {
 
