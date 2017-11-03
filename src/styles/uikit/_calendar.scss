@@ -1,0 +1,26 @@
+/**
+ * The calendar event callout
+ */
+.uikit-callout--calendar-event {
+  background-color: #f0f3f5; }
+
+.uikit-callout--calendar-event__lede,
+.uikit-callout--calendar-event__time,
+.uikit-callout--calendar-event__name {
+  display: block; }
+
+.uikit-callout--calendar-event__lede,
+.uikit-callout--calendar-event__time,
+.uikit-callout--calendar-event__name {
+  margin-bottom: 0.8em; }
+
+.uikit-callout--calendar-event__lede {
+  font-size: 18px; }
+
+.uikit-callout--calendar-event__time,
+.uikit-callout--calendar-event__name {
+  font-size: 32px; }
+
+.uikit-callout--calendar-event__time {
+  font-weight: bold;
+  margin-bottom: 0; }
