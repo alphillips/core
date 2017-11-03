@@ -1,16 +1,14 @@
 # Core
 
 Goals!
-- Ideally, it will export out scss, project including could choose to modify what they want to import
+- Ideally, it will export scss, project including could choose to modify what they want to import
 - Move it off uikit, move it all to material-ui, esp grid
 
 To do!
-- Update all project with (radio/select/checkbox) npm component
+- Update all projects with (radio/select/checkbox) npm component
 - move page-alert into message component and remove from Core
-- check what we are using in headings and see if we can move the styles out
+- check what we are using in Headings and see if we can move the styles out
 
-
-> Note: Messages has 4 types, warning, info, error and success
 
 ## Usage
 
