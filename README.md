@@ -18,11 +18,11 @@ npm i @react-ag-components/core --save
 ```
 ### Use in your project
 ```
-import Messages from '@react-ag-components/core'
+import Core from '@react-ag-components/core'
 ```
 
 ```
-<Messages />
+
 ```
 
 ### Properties
