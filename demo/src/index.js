@@ -4,9 +4,6 @@ import {render} from 'react-dom'
 import './uikit.css'
 import './base.css'
 
-import core from '../../src'
-
-
 
 let Demo = React.createClass({
   render() {
