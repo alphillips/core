@@ -6,7 +6,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 import React from 'react';
 import observer from 'node-observer';
-import Spinner from 'react-spinner-material';
+// import Spinner from 'react-spinner-material'
+import Spinner from './../Spinner';
 
 var LoadableSection = function (_React$Component) {
   _inherits(LoadableSection, _React$Component);
@@ -15,6 +16,10 @@ var LoadableSection = function (_React$Component) {
     _classCallCheck(this, LoadableSection);
 
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
+
+    _this.componentWillUnmount = function () {
+      observer.unsubscribe('load-listener', "section-loading");
+    };
 
     _this.state = {
       loading: false
@@ -33,16 +38,19 @@ var LoadableSection = function (_React$Component) {
   };
 
   LoadableSection.prototype.render = function render() {
+
+    var loading = this.props.loading || this.state.loading;
+
     return React.createElement(
       'div',
       null,
-      this.state.loading && React.createElement(Spinner, {
-        size: 30,
+      loading && React.createElement(Spinner, {
+        size: 50,
         spinnerColor: "#1B7991",
-        spinnerWidth: 2,
+        spinnerWidth: 4,
         visible: true
       }),
-      !this.state.loading && React.createElement(
+      !loading && React.createElement(
         'div',
         null,
         this.props.children

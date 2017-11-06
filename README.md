@@ -22,7 +22,7 @@ Add this import to your project's arc/services/api/index.js
 
 And use these instead of your local implementations.
 ```
-import {get, post, put, del, formPost} from '@react-ag-components/core/api'
+import {get, post, put, del, formPost} from '@react-ag-components/core'
 ```
 
 If you are using the [Messages component](https://www.npmjs.com/package/@react-ag-components/messages) (> 0.0.3) then any REST errors will automatically be shown.
@@ -31,7 +31,7 @@ If you are using the [Messages component](https://www.npmjs.com/package/@react-a
 If you need a Spinner on the page while a REST call is being made, wrap part of your page inside `<LoadableSection>`
 ```
 
-import LoadableSection from '@react-ag-components/core/LoadableSection'
+import LoadableSection from '@react-ag-components/core'
 
 ...
 
