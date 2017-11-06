@@ -4,11 +4,18 @@ import {render} from 'react-dom'
 import './uikit.css'
 import './base.css'
 
+import LoadableSection from '../../src/LoadableSection'
 
 let Demo = React.createClass({
   render() {
     return <div className="uikit-body">
-      // <Messages success="success" info="info" warning="warning" error="error"/>
+      <LoadableSection>
+        Hi
+      </LoadableSection>
+
+      <LoadableSection loading={true}>
+      Im am spinning (you should nt see htis text)
+      </LoadableSection>
     </div>
   }
 })

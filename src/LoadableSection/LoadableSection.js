@@ -1,6 +1,7 @@
 import React from 'react'
 import observer from 'node-observer'
-import Spinner from 'react-spinner-material'
+// import Spinner from 'react-spinner-material'
+import Spinner from './../Spinner'
 
 class LoadableSection extends React.Component {
 
@@ -19,19 +20,26 @@ class LoadableSection extends React.Component {
     }.bind(this))
   }
 
+  componentWillUnmount = () => {
+    observer.unsubscribe('load-listener', "section-loading")
+  }
+
   render() {
+
+    const loading = this.props.loading || this.state.loading
+
     return (
       <div>
-        {this.state.loading &&
+        {loading &&
           <Spinner
-            size={30}
+            size={50}
             spinnerColor={"#1B7991"}
-            spinnerWidth={2}
+            spinnerWidth={4}
             visible={true}
           />
         }
 
-        {!this.state.loading &&
+        {!loading &&
         <div>
           {this.props.children}
         </div>
