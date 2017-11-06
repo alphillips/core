@@ -5,49 +5,52 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 import React from 'react';
+import observer from 'node-observer';
+import Spinner from 'react-spinner-material';
 
-import './messages.css';
+var LoadableSection = function (_React$Component) {
+  _inherits(LoadableSection, _React$Component);
 
-var Messages = function (_React$Component) {
-  _inherits(Messages, _React$Component);
-
-  function Messages(props) {
-    _classCallCheck(this, Messages);
+  function LoadableSection(props) {
+    _classCallCheck(this, LoadableSection);
 
     var _this = _possibleConstructorReturn(this, _React$Component.call(this, props));
 
-    _this.state = {};
+    _this.state = {
+      loading: false
+    };
     return _this;
   }
 
-  Messages.prototype.render = function render() {
+  LoadableSection.prototype.componentDidMount = function componentDidMount() {
+    observer.subscribe('load-listener', "section-loading", function (who, data) {
+      this.setState(function (prevState, props) {
+        return {
+          loading: data.loading
+        };
+      });
+    }.bind(this));
+  };
+
+  LoadableSection.prototype.render = function render() {
     return React.createElement(
       'div',
-      { className: 'message-container' },
-      this.props.info && React.createElement(
+      null,
+      this.state.loading && React.createElement(Spinner, {
+        size: 30,
+        spinnerColor: "#1B7991",
+        spinnerWidth: 2,
+        visible: true
+      }),
+      !this.state.loading && React.createElement(
         'div',
-        { className: 'uikit-page-alerts', role: 'alert' },
-        this.props.info
-      ),
-      this.props.warning && React.createElement(
-        'div',
-        { className: 'uikit-page-alerts uikit-page-alerts--warning', role: 'alert' },
-        this.props.warning
-      ),
-      this.props.success && React.createElement(
-        'div',
-        { className: 'uikit-page-alerts uikit-page-alerts--success', role: 'alert' },
-        this.props.success
-      ),
-      this.props.error && React.createElement(
-        'div',
-        { className: 'uikit-page-alerts uikit-page-alerts--error', role: 'alert' },
-        this.props.error
+        null,
+        this.props.children
       )
     );
   };
 
-  return Messages;
+  return LoadableSection;
 }(React.Component);
 
-export default Messages;
+export default LoadableSection;

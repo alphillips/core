@@ -1,0 +1,28 @@
+/*! @gov.au/link-list v0.2.0 */
+/**
+ * Block of links.
+ */
+.uikit-link-list {
+  display: block;
+  list-style-type: none; }
+  .uikit-body .uikit-link-list {
+    margin: 0;
+    padding: 0.4em 0; }
+  .uikit-link-list > li {
+    display: block;
+    margin: 0.4em; }
+  .uikit-link-list.uikit-link-list--inline {
+    display: inline-block; }
+    .uikit-link-list.uikit-link-list--inline > li {
+      display: inline-block; }
+  .uikit-link-list.uikit-link-list--inverted {
+    background-color: #313131;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+    .uikit-link-list.uikit-link-list--inverted > li > a {
+      color: #fff;
+      border-color: #5bcbe3;
+      transition: color 0.1s ease-in-out; }
+      .uikit-link-list.uikit-link-list--inverted > li > a:hover, .uikit-link-list.uikit-link-list--inverted > li > a:focus {
+        background-color: #5bcbe3;
+        color: #313131; }
