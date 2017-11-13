@@ -5,7 +5,7 @@ const noDefaultExport = () => {}
 
 export {
   api,
-  LoadableSection,
+  LoadableSection
 }
 
 export default noDefaultExport

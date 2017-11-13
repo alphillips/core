@@ -4,10 +4,10 @@ This is the core component for the [Department's Component library](https://www.
 
 It provides the following:
 
-- Core single shared CSS (coming soon)
+- Single base CSS and uikit css
 - Base API client (includes global error handling)
 - Automatic page loading spinner (if using Base APi client)
-- Generic PageWrapper (coming soon ... maybe)
+- PageWrapper for caching and message passing
 
 
 ## Install
@@ -15,6 +15,13 @@ It provides the following:
 npm i @react-ag-components/core --save
 ```
 ## Use in your project
+
+### Base CSS and Uikit
+Include the base.css and uikit.css in your `src/index.html` file
+```
+import '@react-ag-components/core/lib/styles/uikit.css'
+import '@react-ag-components/core/lib/styles/base.css'
+```
 
 ### Base API
 
@@ -45,8 +52,39 @@ import LoadableSection from '@react-ag-components/core/lib/LoadableSection'
 
 Note: any API errors will also stop the spinner.
 
-### Properties
 
+### Page Wrapper
+
+
+Use the `PageWrapper` to support caching and pass messages between pages.
+
+```
+import wrapPage from '@react-ag-components/core/lib/PageWrapper'
+...
+
+export default wrapPage()(Country)
+
+```
+
+To save an object to cache:
+```
+this.props.saveCache(yourObj)
+```
+To read the object from cache
+```
+let obj = this.props.cache.yourObj
+```
+
+To set a message for another page to show:
+```
+this.props.setMessage({success:'Success!'})
+```
+The message can be read and shown from a different page:
+```
+this.state = {
+  success:props.success
+}
+```
 
 ## Contributing
 
