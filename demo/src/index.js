@@ -5,6 +5,7 @@ import './uikit.css'
 import './base.css'
 
 import LoadableSection from '../../src/LoadableSection'
+import Messages from '../../src'
 
 let Demo = React.createClass({
   render() {

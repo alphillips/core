@@ -1,6 +1,9 @@
 html {
-    position: relative;
-    min-height: 100%;
+  overflow-y: scroll;
+  position: relative;
+  min-height: 100%;
+  background: #d7d7d7 url(./body-bg.jpg) top;
+  background-size: cover;
 }
 
 // body:before{
@@ -22,7 +25,7 @@ html {
 
 .uikit-body{
   margin-bottom: 320px;
-  background: whitesmoke;
+  // background: whitesmoke;
   @media screen and (min-width: 992px){
     margin-bottom: 80px;
   }
@@ -33,24 +36,34 @@ html {
   }
 }
 
-.staff-body{
+.staff-body {
   margin-bottom: 50px;
+  @media screen and (min-width: 992px){
+    max-width: 1000px;
+  }
+
+}
+
+.wide-staff-body{
+  @media screen and (min-width: 992px){
+    max-width: 1500px;
+  }
 }
 
 .main-block {
-  // padding: 0 1em;
+  padding: 0 1em;
 
   background-color: #fff;
 
   @media screen and (min-width: 630px){
-    // padding: 0 2em;
+    padding: 0 2em;
   }
 
   @media screen and (min-width: 992px){
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    // padding:0;
+    padding:0;
   }
 
 }
@@ -189,7 +202,7 @@ div.select{
 // }
 
 .nexdoc-home .pathway-list {
-    max-width: 750px;
+    // max-width: 750px;
 }
 
 .pathway-date{
@@ -245,7 +258,7 @@ input[type="text"]::-ms-clear {
 
 // Staff styles
 .uikit-body {
-    background-color: whitesmoke;
+    // background-color: whitesmoke;
 }
 .staff-header {
     background: whitesmoke;
@@ -323,4 +336,8 @@ input[type="text"]::-ms-clear {
   padding-top: 0;
   margin-top: 0;
   // font-size: 1.8em;
+}
+
+.header {
+  background-color: unset!important;
 }
