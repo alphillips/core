@@ -36,6 +36,9 @@ function wrapPage() {
         addCacheData('rex-data',data)
       }
 
+      getCache = (key) => {
+        return getCacheData(key)
+      }
 
       setMessage = (msg) => {
         setCacheData('user-message',msg)
@@ -47,6 +50,7 @@ function wrapPage() {
             {...this.props}
             saveCache={this.save}
             cache={this.rexData}
+            getCache={this.getCache}
             setMessage={this.setMessage}
             success={this.success}
             error={this.error}
