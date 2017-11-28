@@ -52,6 +52,7 @@ function wrapPage() {
         return React.createElement(WrappedComponent, _extends({}, this.props, {
           saveCache: this.save,
           cache: this.rexData,
+          getCache: this.getCache,
           setMessage: this.setMessage,
           success: this.success,
           error: this.error
@@ -62,6 +63,10 @@ function wrapPage() {
     }(React.Component), _initialiseProps = function _initialiseProps() {
       this.save = function (data) {
         addCacheData('rex-data', data);
+      };
+
+      this.getCache = function (key) {
+        return getCacheData(key);
       };
 
       this.setMessage = function (msg) {
