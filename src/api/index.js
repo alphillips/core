@@ -103,7 +103,7 @@ function handleResponse(response, resolve, reject){
   observer.send('loading-sender', 'section-loading', {loading:false})
   if (response.status === 200 ||  response.status === 201) {
 
-    if(response.url && JSON.stringify(response.url).indexOf('/auth/faces/public/login.jsf')===1 ) {
+    if(response.url && JSON.stringify(response.url).indexOf('/auth/faces/public/login.jsf')>-1 ) {
       observer.send('error-sender', 'error', 'Your session has timed out. Please <a href="/">login again</a>')
       reject(null)
     } else {
