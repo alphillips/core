@@ -4,6 +4,11 @@
 /node_modules
 /pancake
 
+/demo/dist
+/es
+/lib
+/umd
+
 # testing
 /coverage
 
