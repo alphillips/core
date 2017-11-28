@@ -122,7 +122,7 @@ function handleResponse(response, resolve, reject){
      if(response.status === 302 || response.status === 501){
        // timeout
        // TODO: Send error to listener
-       observer.send('error-sender', 'error', 'Your session has timed out. Please <a href="/">login again</a>')
+       observer.send('error-sender', 'error', 'Your session has timed out. Please <a href="/portal">login again</a>')
        reject(null)
      } else if(response.status === 500){
        // 500 server error
