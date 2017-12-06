@@ -103,8 +103,8 @@ function handleResponse(response, resolve, reject){
   observer.send('loading-sender', 'section-loading', {loading:false})
   if (response.status === 200 ||  response.status === 201) {
 
-    if(response.url && JSON.stringify(response.url).indexOf('/auth/faces/public/login.jsf')>-1 ) {
-      observer.send('error-sender', 'error', 'Your session has timed out. Please <a href="/">login again</a>')
+    if(response.url && (JSON.stringify(response.url).indexOf('/auth/faces/public/login.jsf')>-1 || JSON.stringify(response.url).indexOf('/auth/faces/public/loggedin.jsf')>-1 )) {
+      observer.send('error-sender', 'error', '200/201 Your session has timed out. Please <a href="/portal">login again</a>')
       reject(null)
     } else {
       response.text().then(data => {
@@ -122,7 +122,7 @@ function handleResponse(response, resolve, reject){
      if(response.status === 302 || response.status === 501){
        // timeout
        // TODO: Send error to listener
-       observer.send('error-sender', 'error', 'Your session has timed out. Please <a href="/portal">login again</a>')
+       observer.send('error-sender', 'error', '302/500 Your session has timed out. Please <a href="/portal">login again</a>')
        reject(null)
      } else if(response.status === 500){
        // 500 server error
