@@ -18,6 +18,9 @@ function wrapPage() {
 
         this.success = null
         this.error = null
+        this.info = null
+        this.warning = null
+        
         let userMessage = getCacheData('user-message')
         if(userMessage !== undefined && userMessage !== null){
           setCacheData('user-message',null);
@@ -26,6 +29,12 @@ function wrapPage() {
           }
           if(userMessage.error){
             this.error = userMessage.error
+          }
+          if(userMessage.info){
+            this.info = userMessage.info
+          }
+          if(userMessage.warning){
+            this.warning = userMessage.warning
           }
         }
 
@@ -54,6 +63,8 @@ function wrapPage() {
             setMessage={this.setMessage}
             success={this.success}
             error={this.error}
+            info={this.info}
+            warning={this.warning}
            />
         );
       }
