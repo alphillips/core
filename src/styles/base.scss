@@ -296,7 +296,7 @@ div.text-group {
   margin-bottom: 0;
 }
 
-input[type="text"]::-ms-clear {
+input::-ms-clear {
   display: none;
 }
 
