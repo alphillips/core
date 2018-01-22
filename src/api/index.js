@@ -102,13 +102,10 @@ export function put(url, body){
 function handleResponse(response, resolve, reject) {
   observer.send("loading-sender", "section-loading", { loading: false });
   if (response.status === 200 || response.status === 201) {
-    console.log("Response URL = " + response.url);
-
     if (response.url &&
       (JSON.stringify(response.url).indexOf("/auth/faces/public/login.jsf") > -1 ||
         JSON.stringify(response.url).indexOf("/auth/faces/public/loggedin.jsf") > -1 ||
-        JSON.stringify(response.url).indexOf("/auth/faces/login") > -1 ||
-        response.url === '')
+        JSON.stringify(response.url).indexOf("/auth/faces/login") > -1)
     ) {
       observer.send(
         "error-sender",
@@ -118,8 +115,18 @@ function handleResponse(response, resolve, reject) {
       reject(null);
     } else {
       response.text().then(data => {
+
         if (data) {
-          resolve(JSON.parse(data));
+          if(data.indexOf('<html') > -1){
+            observer.send(
+              "error-sender",
+              "error",
+              'Your session has timed out. Please <a href="/portal">login again</a>'
+            );
+            reject(null);            
+          } else {
+            resolve(JSON.parse(data));
+          }
         } else {
           resolve();
         }
