@@ -1,6 +1,24 @@
 import observer from 'node-observer'
 
+
+function sendLastAccessTS(){
+  console.log('calling sendLastAccessTS')
+  var now  = new Date();
+  observer.send('send-last-access-ts', 'send-last-access-ts', {lastAccessTS: now});
+}
+
+
+export function ping() {
+   sendLastAccessTS();
+   return get( '/portal/api/v1/user/ping')
+}
+
+
+
 export function get(url){
+
+  sendLastAccessTS();
+
   observer.send('loading-sender', 'section-loading', {loading:true})
   return new Promise(
        (resolve, reject) => {
@@ -20,6 +38,7 @@ export function get(url){
 }
 
 export function post(url, body, noJson){
+  sendLastAccessTS();
   observer.send('loading-sender', 'section-loading', {loading:true})
   return new Promise(
      (resolve, reject) => {
@@ -41,6 +60,7 @@ export function post(url, body, noJson){
 }
 
 export function formPost(url, body){
+  sendLastAccessTS();
   observer.send('loading-sender', 'section-loading', {loading:true})
   return new Promise(
      (resolve, reject) => {
@@ -59,6 +79,7 @@ export function formPost(url, body){
 }
 
 export function del(url){
+  sendLastAccessTS();
   observer.send('loading-sender', 'section-loading', {loading:true})
   return new Promise(
      (resolve, reject) => {
@@ -79,6 +100,7 @@ export function del(url){
 }
 
 export function put(url, body){
+  sendLastAccessTS();
   observer.send('loading-sender', 'section-loading', {loading:true})
   return new Promise(
      (resolve, reject) => {
@@ -123,7 +145,7 @@ function handleResponse(response, resolve, reject) {
               "error",
               'Your session has timed out. Please <a href="/portal">login again</a>'
             );
-            reject(null);            
+            reject(null);
           } else {
             resolve(JSON.parse(data));
           }
