@@ -19,17 +19,25 @@ class SessionTimeOutObserver extends React.Component {
                 sessionExpiredWaningDisplayed : false,
                 sessionExtended : false,
                 sessionExpiryPeriodInMinutes : props.sessionExpiryPeriodInMinutes || 36,
-                jsTimerIntervalInMilliseconds : 15000,
+                jsTimerIntervalInMilliseconds : 10000,
               }
         }
 
         componentDidMount() {
           console.log( 'sessionExpiryPeriodInMinutes : ' + this.state.sessionExpiryPeriodInMinutes );
               observer.subscribe('send-last-access-ts', "send-last-access-ts", function(who, data) {
-                this.setState((prevState, props) => ({
-                  lastAccessTS : data.lastAccessTS
-                }))
-              }.bind(this))
+                  this.setState((prevState, props) => ({
+                    lastAccessTS : data.lastAccessTS
+                  }))
+              }.bind(this));
+
+              observer.subscribe("error-sender", "error", function(who, data) {
+                  if(data && data.substring('Your session has timed out')) {
+                      this.setState({ sessionExpired : true });
+                      console.log('Session expired');
+                      this.showSessionExpiredMessage();
+                  }
+              }.bind(this));
 
               this.callSessionTimeoutOrchestrator();
         }
@@ -39,50 +47,51 @@ class SessionTimeOutObserver extends React.Component {
       }
 
       callSessionTimeoutOrchestrator = () => {
-         window.setTimeout( this.callSessionTimeoutOrchestrator, this.state.jsTimerIntervalInMilliseconds );
-         var sessionExpiryPeriodInSeconds = this.state.sessionExpiryPeriodInMinutes*60;
-         var sessionExpiryWarningAppearTimeInSeconds = (sessionExpiryPeriodInSeconds*84)/100;
+         if(this.state.sessionExpired != true) {
+             window.setTimeout( this.callSessionTimeoutOrchestrator, this.state.jsTimerIntervalInMilliseconds );
+             var sessionExpiryPeriodInSeconds = this.state.sessionExpiryPeriodInMinutes*60;
+             var sessionExpiryWarningAppearTimeInSeconds = (sessionExpiryPeriodInSeconds*84)/100;
 
-         var showSessionExpiredMessage = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , sessionExpiryPeriodInSeconds );
-         var showSessionGoingToExpireSoonMessage = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , sessionExpiryWarningAppearTimeInSeconds );
+             var showSessionExpiredMessage = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , sessionExpiryPeriodInSeconds );
+             var showSessionGoingToExpireSoonMessage = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , sessionExpiryWarningAppearTimeInSeconds );
 
-         if (showSessionExpiredMessage) {
-              this.showSessionExpiredWarning ();
-         } else if (showSessionGoingToExpireSoonMessage) {
-              this.showSessionWillExpireWarning ();
-         }
+             console.log("showSessionGoingToExpireSoonMessage - "+ showSessionGoingToExpireSoonMessage);
+             console.log("showSessionExpiredMessage - "+ showSessionExpiredMessage);
+
+             if (showSessionExpiredMessage) {
+                  this.checkIfSessionExpired ();
+             } else if (showSessionGoingToExpireSoonMessage) {
+                  this.showSessionGoingToExpireSoonMessage ();
+             }
+        }
       }
 
 
       findIfTimeExcededTheLimit = (suppliedDate, limitSeconds) => {
 
-          console.log( "suppliedDate "+ suppliedDate);
-
           if(suppliedDate == null || suppliedDate == undefined){
-            return false;
+              return false;
           }
 
           var nowMS = new Date().getTime();
           var suppliedDateMS = suppliedDate.getTime();
 
           if( (nowMS - suppliedDateMS)/1000 > limitSeconds ) {
-              console.log( "findIfTimeExcededTheLimit : true");
               return true;
           }
 
-          console.log( "findIfTimeExcededTheLimit : false");
           return false;
       }
 
 
 
-      showSessionWillExpireWarning = () => {
+      showSessionGoingToExpireSoonMessage = () => {
 
           // var timeExceededLimit = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , 15 );
 
            if(this.state.sessionExpired != true) {
                    console.log('Session will expire');
-                   this.setState({open: true, sessionExpriyDialogTitle : 'Your session is about to expire soon', sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height':'100', 'border' : '2em','text-align': 'center'} , sessionExpiryMessageTxt : 'Your browser session is to expire soon due to inactivity. Please choose to stay signed in or to logout . Otherwise, you will be logged out automatically.' , button : {margin: 12 } } );
+                   this.setState({open: true, sessionExpriyDialogTitle : 'Your session is about to expire soon', sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height':'100', 'border' : '2em','text-align': 'center'} , sessionExpiryMessageTxt : 'Your browser session is to expire soon due to inactivity. Please choose to stay logged in or to logout . Otherwise, you will be logged out automatically.' , button : {margin: 12 } } );
                    this.setState({actions :  [
 
                       <FlatButton
@@ -102,32 +111,41 @@ class SessionTimeOutObserver extends React.Component {
       }
 
 
-      showSessionExpiredWarning = () => {
+      checkIfSessionExpired = () => {
 
              //var timeExceededLimit = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , 30);
 
              if(this.state.sessionExpired != true) {
-                     try {
+
                      ping().then (
                         data => {
-                            console.log("data");
+                            console.log("ping data");
                             console.log(data);
+                            //ping will revallidate the session, so no point keeping the 'sessionwillexpiresoon message'
+                            this.setState({open: false});
                           }
                         )
-                     } catch (e) {
-                       console.log('Session expired');
-                       this.setState({open: true, sessionExpriyDialogTitle : 'Your session has expired', sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height':'100', 'border' : '2em', 'text-align': 'center'}, sessionExpiryMessageTxt : 'Please login again to use the system ', sessionExpired : true});
-                       this.setState({actions :  [     <FlatButton
-                                                         label="Login"
-                                                         primary={true}
-                                                         keyboardFocused={true}
-                                                         onClick={this.handleExpiredSession}
-                                                       />
-                                                  ]
-                                    });
-                     }
 
              }
+       }
+
+       showSessionExpiredMessage = () => {
+         this.setState({open: true, sessionExpriyDialogTitle : 'Your session has expired', sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height':'100', 'border' : '2em', 'text-align': 'center'}, sessionExpiryMessageTxt : 'Please login again to use the system ', sessionExpired : true});
+         this.setState({actions : [
+                                     <FlatButton
+                                        label="Close"
+                                        primary={true}
+                                        onClick={this.handleClose} /> ,
+
+                                     <RaisedButton
+                                        label="Login"
+                                        labelPosition="before"
+                                        primary={true}
+                                        keyboardFocused={true}
+                                        onClick={this.handleExpiredSession}
+                                        style={this.state.button} />
+                                  ]
+                      });
        }
 
 
@@ -142,11 +160,11 @@ class SessionTimeOutObserver extends React.Component {
              this.setState({open: false});
              //redirect to login page
              console.log('handle expired session');
-             window.location.href = '/auth/faces/logout/'
+             window.location.href = '/portal'
        };
 
        handleClose = () => {
-            this.setState({open: false, sessionExpired : false});
+            this.setState({open: false});
             console.log('handle close');
        }
 
@@ -160,10 +178,12 @@ class SessionTimeOutObserver extends React.Component {
             <Dialog
               title={this.state.sessionExpriyDialogTitle}
               actions={this.state.actions}
-              modal={false}
-              open={this.state.open}
-              onRequestClose={this.handleClose}>
+              modal={true}
+              open={this.state.open}   //              onRequestClose={this.handleClose}
+               >
 
+
+                { !this.state.sessionExpired &&
                 <Paper>
 
                  <div style= {this.state.sessionExpiryDialogStyle} >
@@ -171,6 +191,13 @@ class SessionTimeOutObserver extends React.Component {
                  </div>
 
                 </Paper>
+              }
+              { this.state.sessionExpired &&
+                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session has expired, please login again.</div></div></div>
+
+              }
+
+
             </Dialog>
 
 
