@@ -32,7 +32,7 @@ class SessionTimeOutObserver extends React.Component {
               }.bind(this));
 
               observer.subscribe("error-sender", "error", function(who, data) {
-                  if(data && data.substring('Your session has timed out')) {
+                  if(data && data.indexOf('Your session has timed out')>=0) {
                       this.setState({ sessionExpired : true });
                       console.log('Session expired');
                       this.showSessionExpiredMessage();
