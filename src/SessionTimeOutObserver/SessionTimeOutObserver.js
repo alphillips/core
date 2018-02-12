@@ -32,7 +32,7 @@ class SessionTimeOutObserver extends React.Component {
               }.bind(this));
 
               observer.subscribe("error-sender", "error", function(who, data) {
-                  if(data && data.substring('Your session has timed out')) {
+                  if(data && data.indexOf('Your session has timed out')>=0) {
                       this.setState({ sessionExpired : true });
                       console.log('Session expired');
                       this.showSessionExpiredMessage();
@@ -91,7 +91,7 @@ class SessionTimeOutObserver extends React.Component {
 
            if(this.state.sessionExpired != true) {
                    console.log('Session will expire');
-                   this.setState({open: true, sessionExpriyDialogTitle : 'Your session is about to expire soon', sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height':'100', 'border' : '2em','text-align': 'center'} , sessionExpiryMessageTxt : 'Your browser session is to expire soon due to inactivity. Please choose to stay logged in or to logout . Otherwise, you will be logged out automatically.' , button : {margin: 12 } } );
+                   this.setState({open: true, sessionExpriyDialogTitle : 'Your session is about to time out soon', sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height':'100', 'border' : '2em','text-align': 'center'} , sessionExpiryMessageTxt : 'Your browser session is to time out soon due to inactivity. Please choose to stay logged in or to logout . Otherwise, you will be timed out automatically.' , button : {margin: 12 } } );
                    this.setState({actions :  [
 
                       <FlatButton
@@ -130,7 +130,7 @@ class SessionTimeOutObserver extends React.Component {
        }
 
        showSessionExpiredMessage = () => {
-         this.setState({open: true, sessionExpriyDialogTitle : 'Your session has expired', sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height':'100', 'border' : '2em', 'text-align': 'center'}, sessionExpiryMessageTxt : 'Please login again to use the system ', sessionExpired : true});
+         this.setState({open: true, sessionExpriyDialogTitle : 'Your session has timed out', sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height':'100', 'border' : '2em', 'text-align': 'center'}, sessionExpiryMessageTxt : 'Please login again ', sessionExpired : true});
          this.setState({actions : [
                                      <FlatButton
                                         label="Close"
@@ -193,7 +193,7 @@ class SessionTimeOutObserver extends React.Component {
                 </Paper>
               }
               { this.state.sessionExpired &&
-                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session has expired, please login again.</div></div></div>
+                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session has timed out. Please login again.</div></div></div>
 
               }
 
