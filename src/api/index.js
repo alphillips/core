@@ -2,7 +2,6 @@ import observer from 'node-observer'
 
 
 function sendLastAccessTS(){
-  console.log('calling sendLastAccessTS')
   var now  = new Date();
   observer.send('send-last-access-ts', 'send-last-access-ts', {lastAccessTS: now});
 }
