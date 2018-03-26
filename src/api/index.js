@@ -181,7 +181,6 @@ function handleResponse(response, resolve, reject) {
           let error = JSON.parse(data);
           if (error && error.length > 0) {
             let messages = error
-              .filter(e => e.code != null)
               .map(e => e.message);
             let message = messages.join("\n");
             observer.send("error-sender", "error", message);
