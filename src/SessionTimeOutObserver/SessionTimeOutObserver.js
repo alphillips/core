@@ -18,7 +18,7 @@ class SessionTimeOutObserver extends React.Component {
                 sessionWillExpireWaningDisplayed : false,
                 sessionExpiredWaningDisplayed : false,
                 sessionExtended : false,
-                sessionExpiryPeriodInMinutes : props.sessionExpiryPeriodInMinutes || 1,
+                sessionExpiryPeriodInMinutes : props.sessionExpiryPeriodInMinutes || 36,
                 jsTimerIntervalInMilliseconds : 10000,
               }
         }
