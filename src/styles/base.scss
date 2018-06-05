@@ -4,6 +4,7 @@ html {
   min-height: 100%;
   background: #d7d7d7 url(./body-bg.jpg) top;
   background-size: cover;
+  background-attachment: fixed;
 }
 
 // body:before{
@@ -257,7 +258,7 @@ div.text-group {
     // background-color: whitesmoke;
 }
 .staff-header {
-    background: whitesmoke;
+    background: transparent;
 }
 
 .staff-home{
@@ -332,8 +333,4 @@ input::-ms-clear {
   padding-top: 0;
   margin-top: 0;
   // font-size: 1.8em;
-}
-
-.header {
-  background-color: unset!important;
 }
