@@ -4,7 +4,7 @@ import IdleTimer from 'react-idle-timer';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import {ping} from './../api';
+import {ping, getUserInfo} from './../api';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import FontIcon from 'material-ui/FontIcon';
@@ -18,13 +18,20 @@ class SessionTimeOutObserver extends React.Component {
                 sessionWillExpireWaningDisplayed : false,
                 sessionExpiredWaningDisplayed : false,
                 sessionExtended : false,
-                sessionExpiryPeriodInMinutes : props.sessionExpiryPeriodInMinutes || 36,
+                sessionExpiryPeriodInMinutes : props.sessionExpiryPeriodInMinutes || 1,
                 jsTimerIntervalInMilliseconds : 10000,
               }
         }
 
         componentDidMount() {
-          console.log( 'sessionExpiryPeriodInMinutes : ' + this.state.sessionExpiryPeriodInMinutes );
+
+           getUserInfo().then (
+             data => {
+                 //ping will revallidate the session, so no point keeping the 'sessionwillexpiresoon message'
+                 this.setState({auskeyAuthentication: data.auskeyAuthentication });
+               } );
+
+
               observer.subscribe('send-last-access-ts', "send-last-access-ts", function(who, data) {
                   this.setState((prevState, props) => ({
                     lastAccessTS : data.lastAccessTS
@@ -97,7 +104,7 @@ class SessionTimeOutObserver extends React.Component {
                       <FlatButton
                          label="Log Out"
                          primary={true}
-                         onClick={this.handleExpiredSession} /> ,
+                         onClick={this.logout} /> ,
                        <RaisedButton
                          label="Stay Logged In"
                          labelPosition="before"
@@ -113,39 +120,55 @@ class SessionTimeOutObserver extends React.Component {
 
       checkIfSessionExpired = () => {
 
-             //var timeExceededLimit = this.findIfTimeExcededTheLimit( this.state.lastAccessTS , 30);
-
              if(this.state.sessionExpired != true) {
-
                      ping().then (
                         data => {
-                            console.log("ping data");
+                            console.log("ping");
                             console.log(data);
                             //ping will revallidate the session, so no point keeping the 'sessionwillexpiresoon message'
                             this.setState({open: false});
                           }
                         )
-
              }
        }
 
        showSessionExpiredMessage = () => {
          this.setState({open: true, sessionExpriyDialogTitle : 'Your session has timed out', sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height':'100', 'border' : '2em', 'text-align': 'center'}, sessionExpiryMessageTxt : 'Please login again ', sessionExpired : true});
-         this.setState({actions : [
-                                     <FlatButton
-                                        label="Close"
-                                        primary={true}
-                                        onClick={this.handleClose} /> ,
 
-                                     <RaisedButton
-                                        label="Login"
-                                        labelPosition="before"
-                                        primary={true}
-                                        keyboardFocused={true}
-                                        onClick={this.handleExpiredSession}
-                                        style={this.state.button} />
-                                  ]
-                      });
+         if( !this.state.auskeyAuthentication){
+                              this.setState({actions : [
+                                             <FlatButton
+                                                label="Close"
+                                                primary={true}
+                                                onClick={this.handleClose} /> ,
+
+                                             <RaisedButton
+                                                label="Login"
+                                                labelPosition="before"
+                                                primary={true}
+                                                keyboardFocused={true}
+                                                onClick={this.handleExpiredSession}
+                                                style={this.state.button} />
+                                          ]
+                              });
+         }else {
+                             this.setState({actions : [
+                                            <FlatButton
+                                               label="Close"
+                                               primary={true}
+                                               onClick={this.handleClose} /> ,
+
+                                            <RaisedButton
+                                               label="Login"
+                                               labelPosition="before"
+                                               primary={true}
+                                               keyboardFocused={true}
+                                               onClick={this.handleExpiredSession}
+                                               style={this.state.button} />
+                                         ]
+                             });
+         }
+
        }
 
 
@@ -155,6 +178,14 @@ class SessionTimeOutObserver extends React.Component {
              //make a rest service call to the server to keep the session active.
              console.log('handle continue with the current session');
        };
+
+       logout = () => {
+             this.setState({open: false});
+             //logout
+             console.log('logout');
+             window.location.href = '/auth/faces/logout/';
+       };
+
 
        handleExpiredSession = () => {
              this.setState({open: false});
@@ -192,8 +223,12 @@ class SessionTimeOutObserver extends React.Component {
 
                 </Paper>
               }
-              { this.state.sessionExpired &&
-                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session has timed out. Please login again.</div></div></div>
+              { this.state.sessionExpired && this.state.auskeyAuthentication &&
+                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session with the department online services has timed out. But your AUSkey session may still be active. Please click to <a href="#" onClick="">terminate your AUSKey session</a> </div></div></div>
+
+              }
+              { this.state.sessionExpired && !this.state.auskeyAuthentication &&
+                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session with the department online services has timed out. Please login again.</div></div></div>
 
               }
 
