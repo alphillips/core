@@ -12,7 +12,10 @@ export function ping() {
    return get( '/portal/api/v1/user/ping')
 }
 
-
+export function getUserInfo() {
+   sendLastAccessTS();
+   return get( 'portal/api/v1/user/')
+}
 
 export function get(url){
 
