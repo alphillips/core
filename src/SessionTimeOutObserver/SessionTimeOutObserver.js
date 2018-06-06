@@ -224,7 +224,7 @@ class SessionTimeOutObserver extends React.Component {
                 </Paper>
               }
               { this.state.sessionExpired && this.state.auskeyAuthentication &&
-                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session with the department online services has timed out. But your AUSkey session may still be active. Please click to <a href="#" onClick="">terminate your AUSKey session</a> </div></div></div>
+                 <div class="message-container"><div class="uikit-page-alerts uikit-page-alerts--error" role="alert"><div>Your session with the department online services has timed out. But your AUSkey session may still be active. Please click to <a href="#" onClick="logout();">terminate your AUSKey session</a> </div></div></div>
 
               }
               { this.state.sessionExpired && !this.state.auskeyAuthentication &&
