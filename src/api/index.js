@@ -2,7 +2,6 @@ import observer from 'node-observer'
 
 
 function sendLastAccessTS(){
-  console.log('calling sendLastAccessTS')
   var now  = new Date();
   observer.send('send-last-access-ts', 'send-last-access-ts', {lastAccessTS: now});
 }
@@ -185,7 +184,6 @@ function handleResponse(response, resolve, reject) {
           let error = JSON.parse(data);
           if (error && error.length > 0) {
             let messages = error
-              .filter(e => e.code != null)
               .map(e => e.message);
             let message = messages.join("\n");
             observer.send("error-sender", "error", message);
