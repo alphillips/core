@@ -334,3 +334,8 @@ input::-ms-clear {
   margin-top: 0;
   // font-size: 1.8em;
 }
+
+// fix for IE wrapping issue on checkboxs with long labels
+input[type="checkbox"] + div {
+  display: inline-block !important;
+}
