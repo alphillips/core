@@ -184,7 +184,7 @@ class SessionTimeOutObserver extends React.Component {
 
 
        handleContinueWithSession = () => {
-             this.setState({open: false});
+             //this.setState({open: false});
              ping();
              //make a rest service call to the server to keep the session active.
              console.log('handle continue with the current session');
