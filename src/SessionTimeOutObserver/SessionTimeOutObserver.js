@@ -23,6 +23,7 @@ class SessionTimeOutObserver extends React.Component {
               };
 
               this.sessionExpired = false;
+              this.open = false;
         }
 
         componentDidMount() {
@@ -115,6 +116,7 @@ class SessionTimeOutObserver extends React.Component {
 
            if(this.sessionExpired != true) {
                    console.log('Session will expire');
+                   this.open = true;
                    this.setState({open: true,
                                   sessionExpriyDialogTitle : 'Your session is about to time out soon',
                                   sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height': 100, 'border' : '2em','textAlign': 'center'} ,
@@ -151,6 +153,7 @@ class SessionTimeOutObserver extends React.Component {
                             console.log(data);
                             //ping will revallidate the session, so no point keeping the 'sessionwillexpiresoon message'
                             this.setState({open: false});
+                            this.open = false;
                           }
                         )
              }
@@ -159,6 +162,7 @@ class SessionTimeOutObserver extends React.Component {
        showSessionExpiredMessage = () => {
          console.log("showSessionExpiredMessage - IN ");
          this.sessionExpired = true;
+         this.open = true;
          this.setState({open: true,
                         sessionExpriyDialogTitle : 'Your session has timed out',
                         sessionExpiryDialogStyle : {'backgroundColor' : '#cac8c8','height': 100, 'border' : '2em', 'textAlign': 'center'},
@@ -184,7 +188,8 @@ class SessionTimeOutObserver extends React.Component {
 
 
        handleContinueWithSession = () => {
-             //this.setState({open: false});
+             this.setState({open: false});
+             this.open = false;
              ping();
              //make a rest service call to the server to keep the session active.
              console.log('handle continue with the current session');
@@ -192,6 +197,7 @@ class SessionTimeOutObserver extends React.Component {
 
        logout = () => {
              this.setState({open: false});
+             this.open = false;
              //logout
              console.log('logout');
              window.location.href = '/auth/faces/logout/';
@@ -200,6 +206,7 @@ class SessionTimeOutObserver extends React.Component {
 
        handleExpiredSession = () => {
              this.setState({open: false});
+             this.open = false;
              //redirect to login page
              console.log('handle expired session');
              window.location.href = '/portal'
@@ -214,6 +221,7 @@ class SessionTimeOutObserver extends React.Component {
       handleClose = () => {
          console.log('handle close');
            this.setState({ open : false, sessionExpired: false });
+           this.open = false;
            this.sessionExpired = false;
            console.log(this.sessionExpired);
            setTimeout(this.callSessionTimeoutOrchestrator, 20000);
@@ -236,7 +244,7 @@ class SessionTimeOutObserver extends React.Component {
               title={this.state.sessionExpriyDialogTitle}
               actions={this.state.actions}
               modal={true}
-              open={this.state.open} >
+              open={this.open} >
                 { !this.state.sessionExpired &&
                   <Paper>
 
