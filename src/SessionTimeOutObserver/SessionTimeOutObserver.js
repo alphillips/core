@@ -120,7 +120,7 @@ class SessionTimeOutObserver extends React.Component {
                    this.setState({open: true,
                                   sessionExpriyDialogTitle : 'Your session is about to time out soon',
                                   sessionExpiryDialogStyle : {'backgroundColor' : 'none', 'height': 100, 'border' : '2em','textAlign': 'center'} ,
-                                  sessionExpiryMessageTxt : 'Your browser session is to time out soon due to inactivity. Please choose to stay logged in or to logout . Otherwise, you will be timed out automatically.' ,
+                                  sessionExpiryMessageTxt : 'Your browser session is about to time out soon due to inactivity. Please choose to stay logged in or to logout . Otherwise, you will be timed out automatically.' ,
                                   button : {margin: 12 } ,
                                   actions :  [
                                                  <FlatButton
