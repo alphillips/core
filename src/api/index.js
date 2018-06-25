@@ -175,6 +175,14 @@ function handleResponse(response, resolve, reject) {
         "The application has encountered an unknown error, please try again later."
       );
       reject(null);
+    } else if (response.status === 403) {
+      observer.send(
+        "error-sender",
+        "error",
+        "You do not have access to this function."
+      );
+      reject(null);
+      window.scrollTo(0, 0);
     } else if (response.status === 400) {
       // 400 bad request - should return error array DTO:
       //    [{"code": "640",
