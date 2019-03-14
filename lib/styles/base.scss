@@ -1,0 +1,341 @@
+html {
+  overflow-y: scroll;
+  position: relative;
+  min-height: 100%;
+  background: #d7d7d7 url(./body-bg.jpg) top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+// body:before{
+//   // background-color: #F1F1F5;
+//   // background-image: url(wheat-blur.jpg);
+//   // background-color: white !important;
+//   background-repeat: no-repeat;
+//   background-position: 58% 20% !important;
+//   background-size: cover !important;
+//   background-attachment: fixed;
+//   height: 100%;
+//   z-index: -1;
+//   display: block;
+//   content: "";
+//   position: fixed;
+//   left: 0;
+//   right: 0;
+// }
+
+.uikit-body{
+  margin-bottom: 320px;
+  // background: whitesmoke;
+  @media screen and (min-width: 992px){
+    margin-bottom: 80px;
+  }
+
+  h1{
+    margin-top: 0;
+    padding-top: 0.67em;
+  }
+}
+
+.staff-body {
+  margin-bottom: 50px;
+  @media screen and (min-width: 992px){
+    max-width: 1000px;
+  }
+
+}
+
+.wide-staff-body{
+  @media screen and (min-width: 992px){
+    max-width: 1500px;
+  }
+}
+
+.main-block {
+  padding: 0 1em;
+
+  background-color: #fff;
+
+  @media screen and (min-width: 630px){
+    padding: 0 2em;
+  }
+
+  @media screen and (min-width: 992px){
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:0;
+  }
+
+}
+
+.staff-block {
+
+  @media screen and (min-width: 992px){
+    max-width: 1000px;
+  }
+
+}
+
+button.uikit-btn{
+  margin-top: 1em;
+  margin-bottom: 1em;
+  min-width: 150px;
+  display: block;
+}
+
+
+.page-menu-grid{
+  lost-utility: clearfix;
+  .application-menu{
+    display: none;
+    @media screen and (min-width: 992px){
+      display: block;
+      lost-column: 3/12;
+    }
+  }
+  div.page{
+    lost-column: 1/1;
+    @media screen and (min-width: 992px){
+      lost-column: 9/12;
+    }
+  }
+}
+
+.page-header-grid{
+  lost-utility: clearfix;
+  .page-header{
+    lost-column: 1/1;
+    @media screen and (min-width: 600px){
+      lost-column: 7/12;
+    }
+  }
+  .page-header-rex-number{
+    display: none;
+    @media screen and (min-width: 600px){
+      display: block;
+      lost-column: 5/12;
+    }
+  }
+}
+
+.clear-grid{
+  lost-utility: clearfix;
+}
+
+a.home-link{
+  margin-top: 1em;
+  display: none;
+  @media screen and (min-width: 800px){
+    display: inline-block;
+  }
+}
+
+h2.list-heading{
+  border-bottom: 2px solid #313131;
+  margin-bottom: 8px;
+  max-width: 700px;
+  width: 92%;
+}
+
+label.checkbox {
+  margin-bottom: 1em;
+}
+
+div.select{
+  margin-bottom: 1.5em;
+}
+
+// add this to @react-ag-components/reference-data-selector
+.Select-placeholder, .Select--single > .Select-control .Select-value {
+
+  border: 2px solid #777777;
+  font-size: 16px;
+
+  &:focus {
+    outline: 1px solid #313131;
+    outline-offset: 1px;
+    background-color: #effafc;
+  }
+}
+
+.is-focused:not(.is-open) > .Select-control {
+  border-color: #777777;
+}
+
+.Select-menu-outer {
+  z-index: 999 !important;
+}
+
+
+
+.btn-group{
+  display: flex;
+
+  button, a{
+    margin-right: 1em;
+  }
+}
+
+.uikit-page-alerts--error{
+  white-space: pre-wrap;
+}
+
+// .nexdoc-logo {
+//
+//   font-size: 2em;
+//   // border: 2px solid #00759A;
+//   // margin-top: 30px;
+//   margin-top: 10px;
+//   border-radius: 3px;
+//   padding: 1px 4px;
+//   max-width: 150px;
+//   // background-color: #4299B4;
+//   text-align: center;
+// }
+//
+// .nexdoc-logo-small {
+//   color: #fff;
+// }
+//
+// .nexdoc-logo-big {
+//   color: #fff;
+// }
+
+.nexdoc-home .pathway-list {
+    // max-width: 750px;
+}
+
+.pathway-date{
+  // font-style: italic;
+  font-size: 0.8em;
+}
+
+.search-input input{
+  max-width: 750px;
+}
+
+.status{
+  margin-right: 50px;
+  float: right;
+  border: 2px solid #1b7991;
+  padding: 1px 4px;
+}
+
+.file-drop-zone{
+  // max-width: 300px;
+  // max-height: 200px;
+  border: 2px solid #1B7991;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.pathway-list {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 992px){
+  .main-paper{
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 5em;
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    border-radius:2px;
+  }
+}
+
+.pathway-list ul.pathway-list__pathwaylist li a{
+  padding: 1em;
+}
+
+div.text-group {
+  margin-bottom: 0;
+}
+
+// Staff styles
+.uikit-body {
+    // background-color: whitesmoke;
+}
+.staff-header {
+    background: transparent;
+}
+
+.staff-home{
+  padding-top: 1px;
+}
+.staff-block{
+  // box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+  // border-radius:2px;
+}
+
+
+.pathway-list {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media screen and (min-width: 992px){
+  .main-paper{
+    padding-left: 2em;
+    padding-right: 2em;
+    padding-bottom: 5em;
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    border-radius:2px;
+  }
+}
+
+.pathway-list ul.pathway-list__pathwaylist li a{
+  padding: 1em;
+}
+
+div.text-group {
+  margin-bottom: 0;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+.main-paper, .staff-block {
+  background-color: white;
+}
+
+// .main-block{
+//   background-color: inherit;
+// }
+
+// a href as button
+.uikit-body a.uikit-btn{
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    border-bottom: none;
+    transition:'background 0.1s ease';
+
+    margin-top: 1em;
+    margin-bottom: 1em;
+    min-width: 110px;
+    text-align: center;
+    &:hover, .uikit-body a:focus {
+      background-color: #135566;
+      border-color: none;
+    }
+
+    &:focus {
+      outline: 1px solid #313131;
+      outline-offset: 1px;
+      background-color: #135566;
+  }
+}
+.inpage-header{
+  margin-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+  // font-size: 1.8em;
+}
+
+// fix for IE wrapping issue on checkboxs with long labels
+input[type="checkbox"] + div {
+  display: inline-block !important;
+}
